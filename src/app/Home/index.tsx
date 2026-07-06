@@ -1,6 +1,7 @@
 import { View, Image } from 'react-native';
 
 import { styles } from './styles';
+import { Button } from '@/components/Button';
 
 export function Home() {
   return (
@@ -9,6 +10,7 @@ export function Home() {
         style={styles.logo}
         source={require("@/assets/logo.png")}
       />
+      <Button title="Adicionar" />
     </View>
   );
 }
