@@ -5,6 +5,7 @@ import { styles } from './styles';
 import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Filter } from '@/components/Filter';
+import { Item } from '@/components/Item';
 
 import { FilterStatus } from '@/types/FitlerStatus';
 
@@ -35,6 +36,23 @@ export function Home() {
           <Text style={styles.clearButtonText}>Limpar</Text>
         </TouchableOpacity>
         </View>
+
+        <Item data={
+          {
+            status: FilterStatus.PENDING,
+            description: 'Item 1'
+          }}
+          onRemove={() => console.log('remove')}
+          onStatus={() => console.log('status')}
+        />
+        <Item data={
+          {
+            status: FilterStatus.DONE,
+            description: 'Item 2'
+          }}
+          onRemove={() => console.log('remove')}
+          onStatus={() => console.log('status')}
+        />
       </View>
     </View>
   );
