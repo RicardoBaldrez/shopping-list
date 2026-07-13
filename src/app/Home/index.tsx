@@ -1,12 +1,5 @@
 import { useState } from 'react';
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  Text,
-  FlatList,
-  Alert,
-} from 'react-native';
+import { View, Image, TouchableOpacity, Text, FlatList, Alert } from 'react-native';
 
 import { styles } from './styles';
 
@@ -15,7 +8,7 @@ import { Input } from '@/components/Input';
 import { Filter } from '@/components/Filter';
 import { Item } from '@/components/Item';
 
-import { FilterStatus } from '@/types/FitlerStatus';
+import { FilterStatus } from '@/types/FilterStatus';
 
 const FILTER_STATUS: FilterStatus[] = [
   FilterStatus.DONE,

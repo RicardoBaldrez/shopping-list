@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Trash2 } from 'lucide-react-native';
 
 import { styles } from './styles';
-import { FilterStatus } from '@/types/FitlerStatus';
+import { FilterStatus } from '@/types/FilterStatus';
 import { StatusIcon } from '@/components/StatusIcon';
 
 type ItemDataProps = {

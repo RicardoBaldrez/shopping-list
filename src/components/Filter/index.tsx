@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { styles } from './styles';
 
 import { StatusIcon } from '@/components/StatusIcon';
-import { FilterStatus } from '@/types/FitlerStatus';
+import { FilterStatus } from '@/types/FilterStatus';
 
 type FilterProps = TouchableOpacityProps & {
     status: FilterStatus;
