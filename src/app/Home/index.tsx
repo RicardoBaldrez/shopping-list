@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Image, TouchableOpacity, Text, FlatList, Alert } from 'react-native';
 
 import { styles } from './styles';
@@ -7,6 +7,8 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { Filter } from '@/components/Filter';
 import { Item } from '@/components/Item';
+
+import { itemsStorage, ItemStorage } from '@/storage/itemsStorage';
 
 import { FilterStatus } from '@/types/FilterStatus';
 
@@ -18,7 +20,7 @@ const FILTER_STATUS: FilterStatus[] = [
 export function Home() {
   const [filter, setFilter] = useState(FilterStatus.DONE);
   const [description, setDescription] = useState("");
-  const [items, setItems] = useState<any>([]);
+  const [items, setItems] = useState<ItemStorage[]>([]);
 
   function handleAddItem() {
     if (!description.trim()) {
@@ -31,6 +33,19 @@ export function Home() {
       status: FilterStatus.PENDING,
     };
   }
+
+  async function fetchItems() {
+    try {
+      const response = await itemsStorage.get();
+      setItems(response);
+    } catch (error) {
+      Alert.alert('Erro', error as string);
+    }
+  }
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
   return (
     <View style={styles.container}>
