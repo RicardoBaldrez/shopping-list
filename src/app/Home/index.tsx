@@ -13,12 +13,12 @@ import { itemsStorage, ItemStorage } from '@/storage/itemsStorage';
 import { FilterStatus } from '@/types/FilterStatus';
 
 const FILTER_STATUS: FilterStatus[] = [
-  FilterStatus.DONE,
   FilterStatus.PENDING,
+  FilterStatus.DONE,
 ];
 
 export function Home() {
-  const [filter, setFilter] = useState(FilterStatus.DONE);
+  const [filter, setFilter] = useState(FilterStatus.PENDING);
   const [description, setDescription] = useState("");
   const [items, setItems] = useState<ItemStorage[]>([]);
 
@@ -37,7 +37,11 @@ export function Home() {
     try {
       await itemsStorage.add(newitem);
       await fetchItemsByStatus();
+      
+      Alert.alert('Sucesso', `Item ${description} adicionado com sucesso`);
+      
       setDescription("");
+      setFilter(FilterStatus.PENDING);
     } catch (error) {
       Alert.alert('Erro', error as string);
     }
