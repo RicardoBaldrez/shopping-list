@@ -20,7 +20,6 @@ const FILTER_STATUS: FilterStatus[] = [
 export function Home() {
   const [filter, setFilter] = useState(FilterStatus.DONE);
   const [description, setDescription] = useState("");
-  console.log("🚀 ~ Home ~ description:", description)
   const [items, setItems] = useState<ItemStorage[]>([]);
 
   async function handleAddItem() {
@@ -37,16 +36,16 @@ export function Home() {
 
     try {
       await itemsStorage.add(newitem);
-      await fetchItems();
+      await fetchItemsByStatus();
       setDescription("");
     } catch (error) {
       Alert.alert('Erro', error as string);
     }
   }
 
-  async function fetchItems() {
+  async function fetchItemsByStatus() {
     try {
-      const response = await itemsStorage.get();
+      const response = await itemsStorage.getByStatus(filter);
       setItems(response);
     } catch (error) {
       Alert.alert('Erro', error as string);
@@ -54,8 +53,8 @@ export function Home() {
   }
 
   useEffect(() => {
-    fetchItems();
-  }, []);
+    fetchItemsByStatus();
+  }, [filter]);
 
   return (
     <View style={styles.container}>
