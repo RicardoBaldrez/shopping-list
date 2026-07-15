@@ -20,11 +20,13 @@ const FILTER_STATUS: FilterStatus[] = [
 export function Home() {
   const [filter, setFilter] = useState(FilterStatus.DONE);
   const [description, setDescription] = useState("");
+  console.log("🚀 ~ Home ~ description:", description)
   const [items, setItems] = useState<ItemStorage[]>([]);
 
-  function handleAddItem() {
+  async function handleAddItem() {
     if (!description.trim()) {
-      return Alert.alert('Adicionar', 'Informe a descrição do item');
+      Alert.alert('Adicionar', 'Informe a descrição do item');
+      return;
     }
 
     const newitem = {
@@ -32,6 +34,14 @@ export function Home() {
       description,
       status: FilterStatus.PENDING,
     };
+
+    try {
+      await itemsStorage.add(newitem);
+      await fetchItems();
+      setDescription("");
+    } catch (error) {
+      Alert.alert('Erro', error as string);
+    }
   }
 
   async function fetchItems() {
@@ -55,8 +65,9 @@ export function Home() {
       />
       <View style={styles.form}>
         <Input
-          placeholder="O que você precisa comprar?"
+          value={description}
           onChangeText={setDescription}
+          placeholder="O que você precisa comprar?"
         />
         <Button title="Adicionar" onPress={handleAddItem} />
       </View>
