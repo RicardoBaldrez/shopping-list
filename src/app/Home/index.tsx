@@ -47,6 +47,15 @@ export function Home() {
     }
   }
 
+  async function handleRemoveItem(id: string) {
+    try {
+      await itemsStorage.remove(id);
+      await fetchItemsByStatus();
+    } catch (error) {
+      Alert.alert('Erro', error as string);
+    }
+  }
+
   async function fetchItemsByStatus() {
     try {
       const response = await itemsStorage.getByStatus(filter);
@@ -96,7 +105,7 @@ export function Home() {
             renderItem={({ item }) => (
               <Item
                 data={item}
-                onRemove={() => console.log('remove')}
+                onRemove={() => handleRemoveItem(item.id)}
                 onStatus={() => console.log('status')}
               />
             )}
