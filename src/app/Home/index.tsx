@@ -65,6 +65,29 @@ export function Home() {
     }
   }
 
+  function handleClearItems() {
+    Alert.alert('Limpar', 'Deseja limpar a lista de compras?', [
+      {
+        text: "Não",
+        style: "cancel",
+      },
+      {
+        text: "Sim",
+        onPress: onClearItems,
+      }
+    ])
+  }
+
+  async function onClearItems() {
+    try {
+      await itemsStorage.clear();
+      setItems([]);
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Não foi possível limpar a lista de compras');
+    }
+  }
+
   useEffect(() => {
     fetchItemsByStatus();
   }, [filter]);
@@ -95,7 +118,7 @@ export function Home() {
               />
             ))
           }
-        <TouchableOpacity style={styles.clearButton}>
+        <TouchableOpacity style={styles.clearButton} onPress={handleClearItems}>
           <Text style={styles.clearButtonText}>Limpar</Text>
         </TouchableOpacity>
         </View>
