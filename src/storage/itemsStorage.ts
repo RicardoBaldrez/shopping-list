@@ -52,10 +52,28 @@ async function clear(): Promise<void> {
     }
 }
 
+async function toggleStatus(id: string): Promise<void> {
+    try {
+        const items = await get();
+        const updateItem = items.map(item => 
+        item.id === id ? {
+            ...item,
+            status: item.status === FilterStatus.PENDING ? FilterStatus.DONE : FilterStatus.PENDING
+        } : item
+    );
+
+    await save(updateItem);
+    } catch (error) {
+        throw new Error("TOGGLE_STATUS_ITEMS_STORAGE_ERROR: " + error);
+    }
+    
+}
+
 export const itemsStorage = {
     get,
     add,
     clear,
     remove,
     getByStatus,
+    toggleStatus
 }
